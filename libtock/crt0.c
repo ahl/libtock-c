@@ -237,7 +237,9 @@ void _c_start(uint32_t* app_start, uint32_t stacktop) {
   volatile uint32_t* got_sym_start = (uint32_t*)(myhdr->got_sym_start + (uint32_t)app_start);
   for (uint32_t i = 0; i < (myhdr->got_size / (uint32_t)sizeof(uint32_t)); i++) {
     if ((got_sym_start[i] & 0x80000000) == 0) {
-      got_start[i] = got_sym_start[i] + stacktop;
+      //got_start[i] = got_sym_start[i] + stacktop;
+      // TODO I'm a hack
+      got_start[i] = got_sym_start[i] + 0x2c;
     } else {
       got_start[i] = (got_sym_start[i] ^ 0x80000000) + (uint32_t)app_start;
     }
